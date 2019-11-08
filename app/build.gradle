@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
+    project.archivesBaseName = "QRCodeReader"
     defaultConfig {
         applicationId "com.jodynek.qrreader"
         minSdkVersion 28
@@ -15,6 +16,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            applicationVariants.all { variant ->
+                variant.outputs.all {
+                    def flavor = variant.name
+                    def versionName = variant.versionName
+                    outputFileName = "${project.archivesBaseName}_${flavor}_${versionName}.apk"
+                }
+            }
         }
     }
 }
